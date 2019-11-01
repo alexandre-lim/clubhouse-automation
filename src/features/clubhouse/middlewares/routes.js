@@ -1,7 +1,8 @@
 import { fetchGet, fetchPost } from '../../helpers/fetch';
 
 const clubhouseFeatures = {
-  epics: 'epics'
+  epics: 'epics',
+  stories: 'stories',
 };
 
 function getClubhouseApiUrl(feat = '') {
@@ -36,7 +37,26 @@ async function createEpics(req, res) {
   }
 }
 
+async function createStory(req, res) {
+  const url = getClubhouseApiUrl(clubhouseFeatures.stories);
+  try {
+    const body = JSON.stringify({
+      name: 'Test Story',
+      'project_id': 14,
+      'epic_id': 20,
+      description: 'Created Story',
+      labels: [{ name: 'Book' }]
+    });
+    const createdEpic = await fetchPost(url, body).then(response => response.json());
+    res.json(createdEpic);
+  } catch (e) {
+    console.log(e);
+    res.json('Error occured');
+  }
+}
+
 export {
   getEpics,
   createEpics,
+  createStory,
 };
