@@ -5,6 +5,7 @@ import {
   createStory,
   storiesSearch,
   searchEpics,
+  getProjects,
 } from './routes';
 
 const router = express.Router();
@@ -14,6 +15,8 @@ router.use(express.json());
 router.get('/epics', getEpics);
 
 router.get('/search/epics', searchEpics);
+
+router.get('/projects', getProjects);
 
 router.post('/epics', createEpics);
 

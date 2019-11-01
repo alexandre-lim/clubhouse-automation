@@ -5,6 +5,7 @@ const clubhouseFeatures = {
   stories: 'stories',
   storiesSearch: 'stories/search',
   searchEpics: 'search/epics',
+  projects: 'projects',
 };
 
 function getClubhouseApiUrl(feat = '', params = '') {
@@ -83,10 +84,22 @@ async function searchEpics(req, res) {
   }
 }
 
+async function getProjects(req, res) {
+  const url = getClubhouseApiUrl(clubhouseFeatures.projects);
+  try {
+    const projects = await fetchGet(url).then(response => response.json());
+    res.json(projects);
+  } catch (e) {
+    console.log(e);
+    res.json('Error occured');
+  }
+}
+
 export {
   getEpics,
   createEpics,
   createStory,
   storiesSearch,
   searchEpics,
+  getProjects,
 };
