@@ -1,13 +1,18 @@
-import fetch from 'node-fetch';
+import { fetchGet, fetchPost } from '../../helpers/fetch';
+
+const clubhouseFeatures = {
+  epics: 'epics'
+};
+
+function getClubhouseApiUrl(feat = '') {
+  const CLUBHOUSE_API_TOKEN = process.env.CLUBHOUSE_API_TOKEN;
+  return `https://api.clubhouse.io/api/v3/${feat}?token=${CLUBHOUSE_API_TOKEN}`;
+}
 
 async function getEpics(req, res) {
-  const CLUBHOUSE_API_TOKEN = process.env.CLUBHOUSE_API_TOKEN;
-  const url = `https://api.clubhouse.io/api/v3/epics?token=${CLUBHOUSE_API_TOKEN}`;
+  const url = getClubhouseApiUrl(clubhouseFeatures.epics);
   try {
-    const epics = await fetch(url, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    }).then(response => response.json());
+    const epics = await fetchGet(url).then(response => response.json());
     res.json(epics);
   } catch (e) {
     console.log(e);
@@ -15,6 +20,23 @@ async function getEpics(req, res) {
   }
 }
 
+async function createEpics(req, res) {
+  const url = getClubhouseApiUrl(clubhouseFeatures.epics);
+  try {
+    const body = JSON.stringify({
+      name: 'Test Epic',
+      description: 'Created Epic',
+      labels: [{ name: 'Book' }]
+    });
+    const createdEpic = await fetchPost(url, body).then(response => response.json());
+    res.json(createdEpic);
+  } catch (e) {
+    console.log(e);
+    res.json('Error occured');
+  }
+}
+
 export {
-  getEpics
+  getEpics,
+  createEpics,
 };
