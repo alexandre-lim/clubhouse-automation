@@ -2,6 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import { clubhouseRouter } from './features/clubhouse/middlewares';
 import { initEnvVar } from './env';
+import { spreadsheetRouter } from './features/spreadsheet';
 
 initEnvVar();
 
@@ -22,6 +23,8 @@ app.get('/', (req, res) => {
 });
 
 router.use('/clubhouse', clubhouseRouter);
+
+router.use('/spreadsheet', spreadsheetRouter);
 
 app.use('/api', router);
 
