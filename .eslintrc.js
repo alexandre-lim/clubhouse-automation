@@ -17,5 +17,6 @@ module.exports = {
     "no-console": 1,
     "semi": 2,
     "quotes": [2, "single"],
+    "require-await": "error",
   }
 };
