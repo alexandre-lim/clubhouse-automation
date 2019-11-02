@@ -1,6 +1,7 @@
 export const clubhouseFeatures = {
   epics: 'epics',
   stories: 'stories',
+  storiesBulk: 'stories/bulk',
   storiesSearch: 'stories/search',
   searchEpics: 'search/epics',
   projects: 'projects',

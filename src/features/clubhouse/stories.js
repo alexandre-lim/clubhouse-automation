@@ -15,6 +15,20 @@ async function createStory(body) {
   return 'body is missing or not of string type';
 }
 
+async function createStories(body) {
+  if (body && typeof (body) === 'string') {
+    const url = getClubhouseApiUrl(clubhouseFeatures.storiesBulk);
+    try {
+      const createdStory = await fetchPost(url, body).then(response => response.json());
+      return createdStory;
+    } catch (e) {
+      console.log(e);
+      return 'Error occured';
+    }
+  }
+  return 'body is missing or not of string type';
+}
+
 async function storiesSearch(body) {
   if (body && typeof (body) === 'string') {
     const url = getClubhouseApiUrl(clubhouseFeatures.storiesSearch);
@@ -30,5 +44,6 @@ async function storiesSearch(body) {
 
 export {
   createStory,
+  createStories,
   storiesSearch,
 };
