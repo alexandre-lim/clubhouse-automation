@@ -1,105 +1,58 @@
-import { fetchGet, fetchPost } from '../../helpers/fetch';
+import { getEpics, createEpics, searchEpics } from '../epics';
+import { createStory, storiesSearch } from '../stories';
+import { getProjects } from '../projects';
 
-const clubhouseFeatures = {
-  epics: 'epics',
-  stories: 'stories',
-  storiesSearch: 'stories/search',
-  searchEpics: 'search/epics',
-  projects: 'projects',
-};
-
-function getClubhouseApiUrl(feat = '', params = '') {
-  const CLUBHOUSE_API_TOKEN = process.env.CLUBHOUSE_API_TOKEN;
-  return `https://api.clubhouse.io/api/v3/${feat}?token=${CLUBHOUSE_API_TOKEN}&${params}`;
+async function getEpicsRoute(req, res) {
+  const results = await getEpics();
+  res.json(results);
 }
 
-async function getEpics(req, res) {
-  const url = getClubhouseApiUrl(clubhouseFeatures.epics);
-  try {
-    const epics = await fetchGet(url).then(response => response.json());
-    res.json(epics);
-  } catch (e) {
-    console.log(e);
-    res.json('Error occured');
-  }
+async function createEpicsRoute(req, res) {
+  const body = JSON.stringify({
+    name: 'Test Epic',
+    description: 'Created Epic',
+    labels: [{ name: 'Book' }]
+  });
+  const results = await createEpics(body);
+  res.json(results);
 }
 
-async function createEpics(req, res) {
-  const url = getClubhouseApiUrl(clubhouseFeatures.epics);
-  try {
-    const body = JSON.stringify({
-      name: 'Test Epic',
-      description: 'Created Epic',
-      labels: [{ name: 'Book' }]
-    });
-    const createdEpic = await fetchPost(url, body).then(response => response.json());
-    res.json(createdEpic);
-  } catch (e) {
-    console.log(e);
-    res.json('Error occured');
-  }
+async function createStoryRoute(req, res) {
+  const body = JSON.stringify({
+    name: 'Test Story',
+    project_id: 14,
+    epic_id: 20,
+    description: 'Created Story',
+    labels: [{ name: 'Book' }]
+  });
+  const results = await createStory(body);
+  res.json(results);
 }
 
-async function createStory(req, res) {
-  const url = getClubhouseApiUrl(clubhouseFeatures.stories);
-  try {
-    const body = JSON.stringify({
-      name: 'Test Story',
-      project_id: 14,
-      epic_id: 20,
-      description: 'Created Story',
-      labels: [{ name: 'Book' }]
-    });
-    const createdStory = await fetchPost(url, body).then(response => response.json());
-    res.json(createdStory);
-  } catch (e) {
-    console.log(e);
-    res.json('Error occured');
-  }
+async function storiesSearchRoute(req, res) {
+  const body = JSON.stringify({
+    project_id: 14
+  });
+  const results = await storiesSearch(body);
+  res.json(results);
 }
 
-async function storiesSearch(req, res) {
-  const url = getClubhouseApiUrl(clubhouseFeatures.storiesSearch);
-  try {
-    const body = JSON.stringify({
-      project_id: 14
-    });
-    const stories = await fetchPost(url, body).then(response => response.json());
-    res.json(stories);
-  } catch (e) {
-    console.log(e);
-    res.json('Error occured');
-  }
-}
-
-async function searchEpics(req, res) {
+async function searchEpicsRoute(req, res) {
   const params = 'page_size=1&query=Reality is broken';
-  const url = getClubhouseApiUrl(clubhouseFeatures.searchEpics, params);
-  try {
-    const epics = await fetchGet(url).then(response => response.json());
-    res.json(epics);
-  } catch (e) {
-    console.log(e);
-    res.json('Error occured');
-  }
+  const results = await searchEpics(params);
+  res.json(results);
 }
 
-async function getProjects(req, res) {
-  const url = getClubhouseApiUrl(clubhouseFeatures.projects);
-  try {
-    const projects = await fetchGet(url).then(response => response.json());
-    res.json(projects);
-  } catch (e) {
-    console.log(e);
-    res.json('Error occured');
-  }
+async function getProjectsRoute(req, res) {
+  const results = await getProjects();
+  res.json(results);
 }
 
 export {
-  getEpics,
-  createEpics,
-  createStory,
-  storiesSearch,
-  searchEpics,
-  getProjects,
+  getEpicsRoute,
+  createEpicsRoute,
+  createStoryRoute,
+  storiesSearchRoute,
+  searchEpicsRoute,
+  getProjectsRoute,
 };
