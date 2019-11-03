@@ -12,6 +12,25 @@ async function getProjects() {
   }
 }
 
+/**
+ * TO DO for refacto and try catch error handling
+ */
+// async function getProjectIdByName(name) {
+//   try {
+//     const projects = await getProjects();
+//     let projectId = null;
+//     for (let j = 0, len = projects.length; j < len; j += 1) {
+//       if (projects[j].name === name) {
+//         projectId = projects[j].id;
+//       }
+//     }
+//     return projectId;
+//   } catch (e) {
+//     console.log(e);
+//     return 'Error occured';
+//   }
+// }
+
 export {
   getProjects,
 };
