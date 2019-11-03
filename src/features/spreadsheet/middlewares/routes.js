@@ -1,4 +1,4 @@
-import { readSingleRange } from '../read';
+import { readSingleRange, readMultipleRanges } from '../read';
 import { writeMultipleRanges } from '../write';
 
 async function getArticlesRoute(req, res) {
@@ -32,7 +32,14 @@ async function writeArticlesRoute(req, res) {
   res.json(results);
 }
 
+async function getBookRoute(req, res) {
+  const ranges = 'ranges=Tests!E4:E4&ranges=Tests!F4:F&valueRenderOption=UNFORMATTED_VALUE&majorDimension=COLUMNS';
+  const results = await readMultipleRanges(ranges);
+  res.json(results);
+}
+
 export {
   getArticlesRoute,
-  writeArticlesRoute
+  writeArticlesRoute,
+  getBookRoute,
 };
