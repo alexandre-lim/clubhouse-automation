@@ -16,6 +16,21 @@ async function readSingleRange(tab, range) {
   return 'no value in tab or range';
 }
 
+async function readMultipleRanges(ranges) {
+  if (ranges && typeof (ranges) === 'string') {
+    try {
+      const client = await getClient();
+      const url = getSpreadsheetApiUrl(process.env.SHEET_ID, `values:batchGet?${ranges}`);
+      const results = await client.request({ url, method: 'GET' });
+      return results.data;
+    } catch (e) {
+      console.log(e);
+      return e.message;
+    }
+  }
+}
+
 export {
   readSingleRange,
+  readMultipleRanges,
 };
