@@ -98,7 +98,7 @@ GOOGLE_APPLICATION_CREDENTIALS=[PATH]
 SHEET_ID=
 ```
 
-Use `curl` or [Postman](https://www.getpostman.com/) to consume the API:
+Use `curl` or [Postman](https://www.getpostman.com/) with **HTTP POST** to consume the API:
 - http://localhost:3000/api/automate/book => For [book feature](#book-feature-create-an-epic-from-the-title-of-a-book-and-the-chapters-book-as-stories)
 - http://localhost:3000/api/automate/articles => For [articles feature](#articles-feature-create-stories-from-a-list-of-articles)
 
