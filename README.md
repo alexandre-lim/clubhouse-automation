@@ -37,7 +37,10 @@ Here's the [spreadsheet template](https://docs.google.com/spreadsheets/d/1oHin1t
 ### Nice to have
 - Possibility to write the project name in the spreadsheet and create it or not in Clubhouse if project doesn't exist.
 - Possibility to enter labels to be attached to epics and stories.
+- Possibility to control spreadsheet ranges in the document and not in the code.
 - Swagger to document the API.
+- Extends the parameters like setting the due date in the spreadsheet.
+- Logging (maybe in Stackdriver)
 
 ## What's [Clubhouse](https://clubhouse.io/) ?
 
@@ -69,7 +72,7 @@ The final step will be to deploy the app in GCP with a private Cloud Run and use
 
 ## Development
 
-> **Warning**: It's not optimized for production YET. Code needs to be cleaned too.
+> **Warning**: It's not optimized for production YET. Code needs to be cleaned and tested.
 
 I started with my template [Express Starter](https://github.com/Wraithraiser/express-starter).
 
